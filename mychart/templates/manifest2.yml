@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  namespace: default
+  name: app2
+  labels:
+    app: app2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app2
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: app2
+    spec:
+      containers:
+        - image: priyankainflectionzone/node-apps:app2
+          name: app2-container
+          imagePullPolicy: Always
+          resources: {}
+          ports:
+            - containerPort: 3002
+status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app2
+  labels:
+    run: app2
+spec:
+  ports:
+    - port: 3002
+      protocol: TCP
+  selector:
+    app: app2
+  type: NodePort
